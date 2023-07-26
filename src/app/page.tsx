@@ -3,18 +3,21 @@ import styles from './page.module.css'
 import { Canvas } from "@react-three/fiber";
 import * as THREE from "three";
 import Floor from "@/app/(components)/Floor/Floor";
-import {MutableRefObject, useEffect, useRef, useState} from "react";
+import React, {MutableRefObject, useEffect, useRef, useState} from "react";
 import './style.css'
-import {OrbitControls} from "@react-three/drei";
+import {Center, OrbitControls, Text} from "@react-three/drei";
 import { PerspectiveCamera, PresentationControls } from '@react-three/drei'
+import Overlay from "@/app/(components)/react/overlay/overlay";
 
 export default function Home() {
 
     //CAMERA SETUP
     const refCam:  MutableRefObject<any> = useRef();
-    const camDefaultPos: THREE.Vector3 = new THREE.Vector3(0, 0, 10);
+    const camDefaultPos: THREE.Vector3 = new THREE.Vector3(0, 0, 30);
+    const camDefaultRot: THREE.Euler = new THREE.Euler(0, -3.2, 0);
 
     //HANDLE SCROLL FUNCTION
+    const refScroll: MutableRefObject<any> = useRef() //Scroll ref (main)
     function handle() {
         console.log(window.scrollY)
     }
@@ -24,69 +27,71 @@ export default function Home() {
     //ONCE USE EFFECT HANDLE SCROLL
     useEffect(() => {
         setTimeout(() => {
-            refCam.current.fov = 90;
+            refScroll.current.style.height = '100px';
             console.log(refCam.current)
 
-        },1000);
+        },400);
         window.addEventListener("scroll", handle);
-            const timeout = setTimeout(() => {
-                const interval = setInterval(() => {
-                    refCam.current.rotation.y += 0.05;
-                    console.log(refCam.current.rotation.y);
-                    if (refCam.current.rotation.y >= 0) {
-                        refCam.current.rotation.y = 0
-                        clearInterval(interval);
-                    }
-                }, 20);
-            }, 4000); //Timeout intro
-
         return () => {
-            clearTimeout(timeout);
             window.removeEventListener("scroll", handle);
         }
     }, []);
 
 
-    //
-    // useEffect(() => {
-    //
-    //     //add eventlistener to window
-    //     window.addEventListener("scroll", handle);
-    //     refDivScene.current.appendChild(renderer.domElement);
-    //     camera.position.set(0, (-8 * 0), 10);
-    //     renderer.render(scene, camera);
-    //
-    //         // remove event on unmount to prevent a memory leak with the cleanup
-    //     setTimeout(() => {
-    //         const interval = setInterval(() => {
-    //             camera.rotation.y -= 0.03;
-    //             renderer.render(scene, camera);
-    //             if (camera.rotation.y <= 0) {
-    //                 camera.rotation.y = 0;
-    //                 refMain.current.classList.remove("scrollOff");
-    //                 setIsScrollOff(false);
-    //                 clearInterval(interval);
-    //             }
-    //         }, 15);
-    //     }, 4000); //Timeout intro
-    //     return () => {
-    //         window.removeEventListener("scroll", handle);
-    //         refMain.current.style.overflowY = 'scroll'
-    //     }
-    // }, []);
-    const props = {position: [0, 0, 10]};
+    //START BUTTON TRIGGER ANIMATION
+    const [animDone, setAnimDone] = useState<boolean>(false);
+    function onClickStart() {
+        setAnimDone(true);
+        const interval = setInterval(() => {
+
+            //rotation Y
+            if (refCam.current.rotation.y < 0)
+                refCam.current.rotation.y += 0.025;
+
+            //fov
+            if (refCam.current.fov < 90)
+                refCam.current.fov += 1;
+
+            //translation
+            if (refCam.current.position.z > 10)
+                refCam.current.position.z -= 0.1;
+
+            //rotation Z
+            if (refCam.current.rotation.z < 0.9 && refCam.current.position.z > 20)
+                refCam.current.rotation.z += 0.01;
+            if (refCam.current.rotation.z > 0 && refCam.current.position.z < 20)
+                refCam.current.rotation.z -= 0.01;
+            console.log(refCam.current.rotation.z);
+
+
+            if (refCam.current.rotation.y >= 0 && refCam.current.position.z <= 10 && refCam.current.rotation.z <= 0) {
+                refCam.current.rotation.y = 0;
+                refCam.current.position.z -= 10;
+                refScroll.current.style.height = '10000px';
+                clearInterval(interval);
+            }
+        }, 16);
+
+        return () => clearInterval(interval);
+    }
+
     return (
-        <main className={styles.main}>
+        <main className={styles.main} ref={refScroll}>
             <div className={styles.scene} id='canvas'>
                 <Canvas shadows className={styles.canvas} >
-                    <PerspectiveCamera makeDefault position={camDefaultPos} rotation={[0, -3, 0]} ref={refCam}/>
+                    <PerspectiveCamera makeDefault position={camDefaultPos} rotation={camDefaultRot} ref={refCam}/>
                     {/*<pointLight position={[0, 5, 0]} />*/}
-                      <Floor position={[0, -2, 0]} rotate={[0, 90, 0]}/>
-                      <Floor position={[0, -2, 20]} rotate={[0, 90, 0]}/>
+                      <Floor position={[0, -2, 0]} rotate={[0, 0, 0]}/>
+                      <Floor position={[0, -2, 40]} rotate={[0, 0, 0]}/>
                       <ambientLight />
                       {/*<OrbitControls />*/}
+                    <Text color="white" position={[0, 2, 40]} rotation={[0, 3, 0]}>hello world!</Text>
                 </Canvas>
-          </div>
+            </div>
+            <Overlay />
+            <div className={styles.pageOverlay}>
+                {!animDone ?<button onClick={onClickStart}>Clic zebi</button>: <></>}
+            </div>
         </main>
   )
 }
