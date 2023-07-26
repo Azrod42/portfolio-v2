@@ -10,7 +10,7 @@ const Overlay: React.FC<OverlayProps> = ({}) => {
 
     return (
         <div className={css.container} >
-            =-=-=-=-=-=-=-=-=-=-=-=-Salut la zone-=-=-=-=-=-=-=-=-=-=-=-=
+            =-=-=-=-=-=-=-=-Salut la zone-=-=-=-=-=-=-=-=
         </div>
     )
 }
