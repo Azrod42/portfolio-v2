@@ -66,7 +66,7 @@ export default function Home() {
 
             if (refCam.current.rotation.y >= 0 && refCam.current.position.z <= 10 && refCam.current.rotation.z <= 0) {
                 refCam.current.rotation.y = 0;
-                refCam.current.position.z -= 10;
+                refCam.current.position.z = 10;
                 refScroll.current.style.height = '10000px';
                 clearInterval(interval);
             }
