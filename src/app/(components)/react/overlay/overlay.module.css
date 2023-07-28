@@ -8,3 +8,58 @@
     align-items: flex-start;
     color: blue;
 }
+
+.topL {
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    border-top: 1px solid white;
+    border-left: 1px solid white;
+}
+
+.topR {
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+}
+
+.bottR {
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    bottom: 30px;
+    right: 30px;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+}
+
+.bottL {
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+}
+
+@media (max-width: 500px) {
+    .bottL, .bottR {
+        bottom: 10px;
+    }
+    .topR, .topL {
+        top: 10px;
+    }
+    .topR, .bottR {
+        right: 10px;
+    }
+    .topL, .bottL {
+        left: 10px;
+    }
+}

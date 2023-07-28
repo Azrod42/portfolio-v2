@@ -11,8 +11,6 @@ export function Moon() {
     gltf.scene.scale.y = 5;
     gltf.scene.scale.z = 5;
     // gltf.scene.rotation.x = 3.14;
-    console.log(gltf.scene)
-
 
     useEffect(() => {
         const interval = setInterval(() => {

@@ -11,7 +11,6 @@ export function Ship() {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            console.log(gltf.scene.position.z)
             gltf.scene.position.y -= 0.05;
             gltf.scene.position.z -= 0.05;
             gltf.scene.rotation.y += 0.005;

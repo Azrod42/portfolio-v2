@@ -12,6 +12,9 @@ import img from '../../public/profilePicture.webp'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import {Ship} from "@/app/(components)/ship/ship";
 import {Moon} from "@/app/(components)/moon/moon";
+import {Asteroid1} from "@/app/(components)/asteroid/asteroid1";
+import {Asteroid2} from "@/app/(components)/asteroid/asteroid2";
+import {Asteroid3} from "@/app/(components)/asteroid/asteroid3";
 
 
 export default function Home() {
@@ -118,6 +121,9 @@ export default function Home() {
                     <Image transparent ref={refImage} url={img.src} />
                     {!btnStart ? <Ship /> : <></>}
                     <Moon />
+                    <Asteroid1 />
+                    <Asteroid2 />
+                    <Asteroid3 />
                 </Canvas>
             </div>
             <Overlay />
