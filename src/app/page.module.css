@@ -41,3 +41,35 @@
   color: blue;
 }
 
+.btnStart {
+  width: 100px;
+  height: 40px;
+  border-radius: 40px;
+  /*border: 1px solid #ff3d23;*/
+  border: none;
+  margin-right: 250px;
+  font-size: 1.3rem;
+  cursor: pointer;
+  background-color: black;
+  color: white;
+  box-shadow: 0 0 15px white;
+  animation: startBtn;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes startBtn {
+    0% {
+      box-shadow: 0 0 15px white;
+    }
+    50% {
+      box-shadow: 0 0 2px white;
+    }
+    1000% {
+      box-shadow: 0 0 15px white;
+    }
+
+
+
+}
+
