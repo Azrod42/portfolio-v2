@@ -11,8 +11,6 @@ export function Asteroid1() {
     gltf.scene.scale.y = 0.24;
     gltf.scene.scale.z = 0.24;
     // gltf.scene.rotation.x = 3.14;
-
-
     useEffect(() => {
         const interval = setInterval(() => {
             gltf.scene.rotation.x += 0.002;

@@ -63,3 +63,9 @@
         left: 10px;
     }
 }
+@media (max-width: 387px) {
+    .bottL, .bottR, .topR, .topL {
+        border: none;
+    }
+
+}
