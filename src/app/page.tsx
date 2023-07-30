@@ -150,10 +150,6 @@ export default function Home() {
                     <Text color="white" position={[15, -0.4, 20]} rotation={[0,- 1.6, 0]} scale={[0.5, 0.5, 0.5]}>Postman</Text>
                     <Text color="white" position={[15, 2.4, 25]} rotation={[0,- 1.6, 0]} scale={[0.5, 0.5, 0.5]}>PostgresSQL</Text>
 
-
-
-
-
                     <Image transparent ref={refImage} url={img.src} />
                     {!btnStart ? <Ship /> : <></>}
                     <Moon />
